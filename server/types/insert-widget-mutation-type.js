@@ -1,9 +1,9 @@
 import { GraphQLString } from 'graphql';
 import { mutationWithClientMutationId, offsetToCursor } from 'graphql-relay';
 
-import { Viewer, Widget } from '../models/graphql-models';
+import { Viewer } from '../models/graphql-models';
 import { viewerType } from './viewer-type';
-import { widgetsEdgeType } from '../connections/widgets';
+import { widgetsEdgeType } from '../connections/widget-connection';
 import { insertWidgetType } from './widget-input-types';
 
 import { WidgetData } from '../models/widget-data';

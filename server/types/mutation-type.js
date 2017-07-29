@@ -1,15 +1,19 @@
 import { GraphQLObjectType } from 'graphql';
 
-import { insertWidgetMutationType as insertWidget } from './insert-widget-mutation-type';
-import { deleteWidgetMutationType as deleteWidget } from './delete-widget-mutation-type';
+import { insertWidgetMutationType } from './insert-widget-mutation-type';
+import { updateWidgetMutationType } from './update-widget-mutation-type';
+import { deleteWidgetMutationType } from './delete-widget-mutation-type';
 
-export const mutationType = new GraphQLObjectType({
+export const mutation = new GraphQLObjectType({
 
   name: 'Mutation',
 
   fields: () => ({
-    insertWidget,
-    deleteWidget,
+
+    insertWidget: insertWidgetMutationType,
+    updateWidget: updateWidgetMutationType,
+    deleteWidget: deleteWidgetMutationType,
+
   }),
 
 });
