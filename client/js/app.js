@@ -1,4 +1,4 @@
-import 'bootstrap-loader';
+import 'bootstrap/dist/css/bootstrap.css';
 import '../scss/styles.scss';
 
 import React from 'react';

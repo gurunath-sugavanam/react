@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Jumbotron } from 'reactstrap';
 
 export class HelloWorld extends React.Component {
 
@@ -8,7 +9,9 @@ export class HelloWorld extends React.Component {
   };
 
   render() {
-    return <h1>Hello World! {this.props.message}</h1>;
+    return <Jumbotron>
+      <h1>Hello World! {this.props.message}</h1>
+    </Jumbotron>;
   }
 
 }
