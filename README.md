@@ -54,6 +54,8 @@ Breaks:
 - Connecting Redux to REST Services
 - Unit Testing
 
+[Course Login](https://www.t4d.school/login/index.php)
+
 ## Links
 
 ### Instructor's Resources
