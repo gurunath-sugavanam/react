@@ -1,12 +1,10 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import '../scss/styles.scss';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { HelloWorld } from './components/hello-world';
+import { ColorTool } from './components/color-tool';
 
 ReactDOM.render(
-  <HelloWorld message="Bonjour le monde!" />,
-  document.querySelector('main'),
+  <ColorTool />,
+  document.querySelector('main')
 );
+
