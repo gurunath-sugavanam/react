@@ -56,8 +56,8 @@ Breaks:
 
 [Course Login](https://www.t4d.school/login/index.php)
 
-Username: Email account name without the @ symbol and domain
-Password: t4dpass (you will be prompted to change it on first login)
+- Username: Email account name without the @ symbol and domain
+- Password: t4dpass (you will be prompted to change it on first login)
 
 ## Links
 
