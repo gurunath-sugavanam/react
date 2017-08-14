@@ -19,11 +19,40 @@ Breaks:
 
 ## Course Outline
 
-- Day 1 - Overview of React and Testing, JSX, Props, Styling, Jest + Snapshot Testing
-- Day 2 - State, DOM and Shallow Testing
-- Day 3 - Component Composition
-- Day 4 - Redux, Unit Testing Reducers and Action Creators
-- Day 5 - Asynchronous Programming with Promises and Redux
+### Monday’s Topics
+
+- Creating a Component & JSX
+- Display a Static List/Table with JSX
+- Display a Dynamic List/Table with JSX and Map
+- Styling Components
+- Passing Data in with Props
+
+### Tuesday’s Topics
+
+- Working with State and Form Fields
+- Working with State and Processing Form Data
+- Decomposition and Props
+- Decomposition and State
+
+### Wednesday’s Topics
+
+- Stateless Functions
+- Adding PropTypes
+- Understanding Keys
+- Using Refs and Life Cycle Functions
+- Pure Components
+
+### Thursday’s Topics
+
+- User Interface Routing
+- Principles of Redux
+- Reducers and Actions
+
+### Friday’s Topics
+
+- Integrating Redux with React
+- Connecting Redux to REST Services
+- Unit Testing
 
 ## Links
 
