@@ -1,6 +1,23 @@
 import React from 'react';
 
 export class ColorTool extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      newColor: '',
+    };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({
+      [ e.currentTarget.name ]: e.currentTarget.value,
+    });
+  }
+
   render() {
 
     return <div>
@@ -12,6 +29,13 @@ export class ColorTool extends React.Component {
           <li>{color}</li>
         )}
       </ul>
+      <form>
+        <div>
+          <label htmlFor="new-color-input">New Color:</label>
+          <input type="text" id="new-color-input" name="newColor"
+            value={this.state.newColor} onChange={this.onChange}  />
+        </div>
+      </form>
     </div>;
   }
 }
