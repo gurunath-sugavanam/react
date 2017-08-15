@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ToolHeader } from './tool-header';
+
 export class ColorTool extends React.Component {
 
   constructor(props) {
@@ -27,9 +29,7 @@ export class ColorTool extends React.Component {
   render() {
 
     return <div>
-      <header>
-        <h1>{this.props.headerText}</h1>
-      </header>
+      <ToolHeader headerText={this.props.headerText} />
       <ul>
         {this.state.colors.map(color =>
           <li>{color}</li>
