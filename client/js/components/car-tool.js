@@ -6,20 +6,41 @@ export class CarTool extends React.Component {
     super(props);
 
     this.state = {
-      make: '',
-      model: '',
-      year: 1900,
-      color: '',
-      price: 0,
+      newCar: {
+        make: '',
+        model: '',
+        year: 1900,
+        color: '',
+        price: 0,
+      }
     };
   }
 
   onChange = e => {
+    // this.setState({
+    //   [ e.currentTarget.name ]: e.currentTarget.type === 'number'
+    //     ? Number(e.currentTarget.value)
+    //     : e.currentTarget.value, 
+    // });
+
+    // behind the scenes...
+
+    // this.state = Object.assign({}, this.state, {
+    //   newCar: {
+    //     make: 'Ford',
+    //   },
+    // });
+
     this.setState({
-      [ e.currentTarget.name ]: e.currentTarget.type === 'number'
-        ? Number(e.currentTarget.value)
-        : e.currentTarget.value, 
+      newCar: Object.assign({}, this.state.newCar, {
+        make: 'Ford',
+      }),
     });
+
+    this.setState({
+      newCar: { ...this.state.newCar, make: 'Ford' },
+    });
+
   };
 
   render() {
