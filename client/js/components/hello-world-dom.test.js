@@ -6,7 +6,7 @@ import { HelloWorld } from './hello-world';
 
 jest.unmock('./hello-world');
 
-describe('<HelloWorld /> Test Utils Mock DOM', () => {
+xdescribe('<HelloWorld /> Test Utils Mock DOM', () => {
 
   let component;
   let componentDOMNode;
@@ -22,7 +22,7 @@ describe('<HelloWorld /> Test Utils Mock DOM', () => {
 
 });
 
-describe('<HelloWorld /> Enzyme Mock DOM', () => {
+xdescribe('<HelloWorld /> Enzyme Mock DOM', () => {
 
   let component;
   let componentDOMNode;

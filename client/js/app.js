@@ -1,25 +1,56 @@
-import '../scss/styles.scss';
+import keyMirror from 'key-mirror';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
 
-// import { ColorTool } from './components/color-tool';
+const actionTypes = keyMirror({
+  ADD: null,
+  SUBTRACT: null,
+});
 
-// const colorList = ['red','green','yellow','blue'];
+const addActionCreator = value => ({ type: actionTypes.ADD, value });
+const subtractActionCreator = value => ({ type: actionTypes.SUBTRACT, value });
 
-// ReactDOM.render(
-//   <ColorTool colors={colorList} />,
-//   document.querySelector('main')
-// );
+const reducer = ( state = 0, action ) => {
 
-import { CarTool } from './components/car-tool';
+  console.log('state: ', state, 'action: ', action);
 
-const carData = [
-  { id: 1, make: 'Ford', model: 'Fusion Hybrid', year: 2017, color: 'blue', price: 23000 },
-  { id: 2, make: 'Ford', model: 'Focus', year: 2015, color: 'yellow', price: 12000 },
-];
+  switch (action.type) {
+    case actionTypes.ADD:
+      return state + action.value;
+    case actionTypes.SUBTRACT:
+      return state - action.value;
+    default:
+      return state;
+  }
+};
 
-ReactDOM.render(
-  <CarTool cars={carData} />,
-  document.querySelector('main')
-);
+// const createStore = (reducer, initialState) => {
+
+//   let state = initialState;
+
+//   const subscribers = [];
+
+//   return {
+//     dispatch: (action) => {
+//       state = reducer(state, action);
+//       subscribers.forEach(subscription => subscription());
+//     },
+//     subscribe: (subscription) => {
+//       subscribers.push(subscription);
+//     },
+//     getState: () => state,
+//   };
+
+// };
+
+const store = createStore(reducer, 0);
+
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch(addActionCreator(1));
+store.dispatch(subtractActionCreator(2));
+store.dispatch(addActionCreator(3));
+store.dispatch(subtractActionCreator(4));
+store.dispatch(addActionCreator(5));

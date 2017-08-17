@@ -6,7 +6,7 @@ import { ColorForm } from './color-form';
 
 jest.unmock('./color-form');
 
-describe('<ColorForm /> Test Utils Mock DOM', () => {
+xdescribe('<ColorForm /> Test Utils Mock DOM', () => {
 
   const newColorValue = 'purple';
   const eventHandlers = { saveColor: () => {} };
@@ -41,7 +41,7 @@ describe('<ColorForm /> Test Utils Mock DOM', () => {
 
 });
 
-describe('<ColorForm /> Enzyme Mock DOM', () => {
+xdescribe('<ColorForm /> Enzyme Mock DOM', () => {
 
   const newColorValue = 'purple';
   const eventHandlers = { saveColor: () => {} };

@@ -17,6 +17,12 @@ export class CarEditRow extends BaseForm {
     this.state = { ...props.car };
   }
 
+  componentDidMount() {
+    if (this.makeInput) {
+      this.makeInput.focus();
+    }
+  }
+
   saveCar = () => {
     this.props.onSaveCar(Object.assign({}, this.state));
 
@@ -33,7 +39,8 @@ export class CarEditRow extends BaseForm {
     return <tr>
       <td>
         <input type="text" id="edit-make-input" name="make" 
-          value={this.state.make} onChange={this.onChange} />
+          value={this.state.make} onChange={this.onChange}
+          ref={ input => this.makeInput = input } />
       </td>
       <td>
         <input type="text" id="edit-model-input" name="model" 

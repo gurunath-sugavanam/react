@@ -40,10 +40,47 @@ export class CarForm extends BaseForm {
         year: 1900,
         color: '',
         price: 0,
+      }, () => {
+        if (this.makeInput) {
+          this.makeInput.focus();
+        }
       });
     }
 
   }
+
+  componentWillReceiveProps(nextProps) {
+
+    if (nextProps.doSetFocus) {
+      if (this.makeInput) {
+        this.makeInput.focus();
+      }      
+    }
+
+  }
+
+  componentDidMount() {
+
+    if (this.makeInput) {
+      this.makeInput.focus();
+    }
+
+  }
+
+  // componentDidUpdate() {
+
+  //   
+
+  // }
+
+  // onChange = e => {
+  //   this.setState({
+  //     [ e.currentTarget.name ]: e.currentTarget.value,
+  //   }, () => {
+  //     console.log('state was updated');
+  //   });
+
+  // }
 
   render() {
 
@@ -51,7 +88,8 @@ export class CarForm extends BaseForm {
       <div>
         <label htmlFor="make-input">Make:</label>
         <input type="text" id="make-input" name="make"
-          value={this.state.make} onChange={this.onChange} />
+          value={this.state.make} onChange={this.onChange}
+          ref={ input => this.makeInput = input } />
       </div>
       <div>
         <label htmlFor="model-input">Model:</label>
