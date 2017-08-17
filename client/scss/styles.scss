@@ -2,6 +2,23 @@ main {
   padding-top: 30px;
 }
 
-.artem {
-  color: blue;
+nav {
+  
+  ul {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+  }
+
+  li {
+    display: inline-block;
+    margin:5px;
+    padding:2px;
+    border: black solid 2px;
+
+    a { 
+      text-decoration: none;
+      color: blue;
+    }
+  }
 }

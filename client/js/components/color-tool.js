@@ -1,35 +1,8 @@
 import React from 'react';
 
 import { ToolHeader } from './tool-header';
+import { UnorderedList } from './unordered-list';
 import { ColorForm } from './color-form';
-
-class ListItem extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      item: props.item,
-    };
-
-    //console.log('list item constructor: ' + props.item);
-  }
-
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      item: nextProps.item,
-    });
-  }
-
-  render() {
-
-    return <li>props: {this.props.item}, state: {this.state.item}</li>;
-
-  }
-
-}
-
 
 export class ColorTool extends React.Component {
 
@@ -37,19 +10,17 @@ export class ColorTool extends React.Component {
     super(props);
 
     this.state = {
-      colors: [ ...props.colors ],
+      colors: props.colors.slice(),
     };
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        colors: [ ...this.props.colors.slice(0,2), ...this.props.colors.slice(3) ]
-      });
-    }, 4000);
-  }
+  onChange = (e) => {
+    this.setState({
+      [ e.currentTarget.name ]: e.currentTarget.value,
+    });
+  };
 
-  addColor = newColor => {
+  onClick = newColor => {
     this.setState({
       colors: this.state.colors.concat(newColor),
     });
@@ -58,11 +29,10 @@ export class ColorTool extends React.Component {
   render() {
 
     return <div>
-      <ToolHeader xheaderText={this.props.headerText} />
-      <ul>
-        {this.state.colors.map( (color, index) => <ListItem key={index} item={color} />)}
-      </ul>
-      <ColorForm onSubmitColor={this.addColor} />
+      <ToolHeader headerText="Color Tool" />
+      <UnorderedList items={this.state.colors} />
+      <ColorForm onSaveColor={this.onClick} />
     </div>;
   }
 }
+

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import { ToolHeader } from './tool-header';
 import { CarTable } from './car-table';
 import { CarForm } from './car-form';
@@ -60,13 +62,35 @@ export class CarTool extends React.Component {
 
   render() {
 
-    return <div>
-      <ToolHeader headerText="Car Tool" />
-      <CarTable {...this.state}
-        onDeleteCar={this.deleteCar} onEditCar={this.editCar}
-        onSaveCar={this.saveCar} onCancelCar={this.cancelCar}  />
-      <CarForm onSaveCar={this.addCar} />
-    </div>;
+    return <Router>
+      <div>
+        <ToolHeader headerText="Car Tool" />
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/create">Create</Link></li>
+          </ul>
+        </nav>
+
+        <Route exact path="/" render={({ history }) => {
+
+          return <div>
+            <CarTable {...this.state}
+              onDeleteCar={this.deleteCar} onEditCar={this.editCar}
+              onSaveCar={this.saveCar} onCancelCar={this.cancelCar}  />
+            <button type="button" onClick={() => {
+              history.push({
+                pathname: '/create'
+              });
+            }}>Add Car</button>
+          </div>;
+        }} />
+
+        <Route path="/create" render={
+          (router) => <CarForm onSaveCar={this.addCar} {...router} />
+        } />
+      </div>
+    </Router>;
   }
 }
 

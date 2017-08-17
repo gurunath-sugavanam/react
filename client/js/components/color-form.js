@@ -1,6 +1,8 @@
 import React from 'react';
 
-export class ColorForm extends React.Component {
+import { BaseForm } from './base-form';
+
+export class ColorForm extends BaseForm {
 
   constructor(props) {
     super(props);
@@ -8,16 +10,20 @@ export class ColorForm extends React.Component {
     this.state = {
       newColor: '',
     };
+
+    // this.onClick = this.onClick.bind(this);
   }
 
-  onChange = e => {
-    this.setState({
-      [ e.currentTarget.name ]: e.currentTarget.value,
-    });
+  componentDidMount() {
+
+    if (this.newColorInput) {
+      this.newColorInput.focus();
+    }
+
   }
-  
-  submitColor = () => {
-    this.props.onSubmitColor(this.state.newColor);
+
+  onClick = () => {
+    this.props.onSaveColor(this.state.newColor);
 
     this.setState({
       newColor: '',
@@ -26,12 +32,14 @@ export class ColorForm extends React.Component {
 
   render() {
     return <form>
-      <div>
+      <div className="some-class">
         <label htmlFor="new-color-input">New Color:</label>
         <input type="text" id="new-color-input" name="newColor"
-          value={this.state.newColor} onChange={this.onChange}  />
+          value={this.state.newColor} onChange={this.onChange}
+          ref={ wade => this.newColorInput = wade } />
       </div>
-      <button type="button" onClick={this.submitColor}>Submit Color</button>
+      <button type="button" onClick={this.onClick}>Add Color</button>
     </form>;
   }
+
 }
