@@ -100,9 +100,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(Calculator);
 
-ReactDOM.render(<Provider store={store}>
-  <CalculatorContainer />
-</Provider>, document.querySelector('main'));
+// ReactDOM.render(<Provider store={store}>
+//   <CalculatorContainer />
+// </Provider>, document.querySelector('main'));
 
 
 
