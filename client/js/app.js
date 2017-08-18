@@ -96,9 +96,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 //returning a function which will create a container component which uses the mapping functions
 //to connect redux to the presentation component
-const calculatorConnector = connect(mapStateToProps, mapDispatchToProps);
+//const calculatorConnector = connect(mapStateToProps, mapDispatchToProps);
 
-const CalculatorContainer = calculatorConnector(Calculator);
+const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(Calculator);
 
 ReactDOM.render(<Provider store={store}>
   <CalculatorContainer />
