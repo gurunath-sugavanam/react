@@ -15,20 +15,30 @@
     'use strict';
 
 
-    const xhr = new XMLHttpRequest();
+    // const getData = url => {
 
-    xhr.addEventListener('readystatechange', () => {
+    //   return new Promise(resolve => {
 
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log(JSON.parse(xhr.responseText));
-      }
+    //     const xhr = new XMLHttpRequest();
 
-    });
+    //     xhr.addEventListener('readystatechange', () => {
 
-    xhr.open('GET', 'http://localhost:3000/api/cars');
-    xhr.send();
+    //       if (xhr.readyState === 4 && xhr.status === 200) {
+    //         resolve(JSON.parse(xhr.responseText));
+    //       }
 
-    getData('http://localhost:3000/api/cars').then(results => console.log(results));
+    //     });
+
+    //     xhr.open('GET', url);
+    //     xhr.send();
+    //   });
+
+    // }
+
+    //1. implement the get data function
+    // fetch('http://localhost:3000/api/cars')
+    //   .then(res => res.json())
+    //   .then(results => console.log(results));
 
 
 

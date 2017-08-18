@@ -1,113 +1,97 @@
 import keyMirror from 'key-mirror';
-import { createStore, bindActionCreators } from 'redux';
+import { createStore, bindActionCreators, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 const actionTypes = keyMirror({
-  ADD: null,
-  SUBTRACT: null,
-  MULTIPLY: null,
-  DIVIDE: null,
+  REFRESH_REQUEST: null,
+  REFRESH_DONE: null,
+  ADD_REQUEST: null,
 });
 
-const addActionCreator = value => ({ type: actionTypes.ADD, value });
-const subtractActionCreator = value => ({ type: actionTypes.SUBTRACT, value });
-const multiplyActionCreator = value => ({ type: actionTypes.MULTIPLY, value });
-const divideActionCreator = value => ({ type: actionTypes.DIVIDE, value });
+const refresh = () => {
 
-const reducer = ( state = 0, action ) => {
+  return dispatch => {
+
+    // action 1
+    dispatch({ type: actionTypes.REFRESH_REQUEST, colors: [] });
+
+    return fetch('http://localhost:3000/api/colors')
+      .then(res => res.json())
+      // action 2
+      .then(colors => dispatch({ type: actionTypes.REFRESH_DONE, colors}));
+
+  };
+
+};
+
+const add = color => {
+
+  return dispatch => {
+    // action 1
+    dispatch({ type: actionTypes.ADD_REQUEST, color });
+    
+    return fetch('http://localhost:3000/api/colors', {
+      method: 'POST',
+      body: JSON.stringify(color),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(() => fetch('http://localhost:3000/api/colors'))
+      .then(res => res.json())
+      .then(colors => dispatch({ type: actionTypes.REFRESH_DONE, colors}));
+
+  };
+
+};
+
+const mapStateToProps = (state) => ({ colors: state.colors });
+const mapDispatchToProps = dispatch => bindActionCreators({ refresh, add }, dispatch);
+
+
+const reducer = (state = { colors: [] }, action) => {
+
   switch (action.type) {
-    case actionTypes.ADD:
-      return state + action.value;
-    case actionTypes.SUBTRACT:
-      return state - action.value;
-    case actionTypes.MULTIPLY:
-      return state * action.value;
-    case actionTypes.DIVIDE:
-      return state / action.value;
+    case actionTypes.REFRESH_REQUEST:
+      return { ...state, colors: [] };
+    case actionTypes.ADD_REQUEST:
+      return { ...state, color: action.color };
+    case actionTypes.REFRESH_DONE:
+      return { ...state, colors: action.colors };
     default:
       return state;
   }
+
 };
 
-const store = createStore(reducer, 0);
+const store = createStore(reducer, applyMiddleware(thunk));
 
-class Calculator extends React.Component {
+const ColorTool = props => {
 
-  add = value => this.props.add(Number(this.input.value));
-  subtract = value => this.props.subtract(Number(this.input.value));
-  multiply = value => this.props.multiply(Number(this.input.value));
-  divide = value => this.props.divide(Number(this.input.value));
+  let newColorInput;
 
-  render() {
-    return <form>
-      <input type="text" ref={i => this.input = i} defaultValue="0" />
-      <button type="button" onClick={this.add}>+</button>
-      <button type="button" onClick={this.subtract}>-</button>
-      <button type="button" onClick={this.multiply}>*</button>
-      <button type="button" onClick={this.divide}>/</button>
-      <div>Result: {this.props.result}</div>
-    </form>;
-  }
-}
+  return <div>
+    <ul>
+      {props.colors.map(color => <li key={color.id}>{color.name}</li>)}
+    </ul>
+    <form>
+      <label htmlFor="new-color-input">New Color</label>
+      <input type="text" id="new-color-input"
+        defaultValue="" ref={i => newColorInput = i} />
+      <button type="button"
+        onClick={() => props.add({ name: newColorInput.value })}>Add</button>   
+    </form>
+  </div>;
 
-const mapStateToProps = state => ({ result: state });
+};
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  add: addActionCreator,
-  subtract: subtractActionCreator,
-  multiply: multiplyActionCreator,
-  divide: divideActionCreator,
-}, dispatch);
+const ColorToolContainer = connect(mapStateToProps, mapDispatchToProps)(ColorTool);
 
-// pass in two mapping functions
-// const connect = (mapStateToPropsFn, mapDispatchToPropsFn) => {
+ReactDOM.render(<Provider store={store}>
+  <ColorToolContainer />
+</Provider>, document.querySelector('main'));
 
-//   // component = Calculator
-//   return Component => {
+store.dispatch(refresh());
 
-//     return class Container extends React.Component {
-
-//       componentWillMount() {
-//         this.componentProps = mapDispatchToPropsFn(this.props.store.dispatch);
-//       }
-
-//       componentDidMount() {
-//         this.props.store.subscribe(() => {
-//           this.forceUpdate();
-//         });
-//       }
-
-//       render() {
-
-//         this.componentProps = Object.assign(
-//           this.componentProps, mapStateToPropsFn(this.props.store.getState()))
-
-//         return <Component {...this.componentProps} />;
-//       }
-
-//     };
-
-//   };
-
-
-// };
-
-//returning a function which will create a container component which uses the mapping functions
-//to connect redux to the presentation component
-//const calculatorConnector = connect(mapStateToProps, mapDispatchToProps);
-
-const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(Calculator);
-
-// ReactDOM.render(<Provider store={store}>
-//   <CalculatorContainer />
-// </Provider>, document.querySelector('main'));
-
-
-
-
-// store.subscribe(() => {
-//   ReactDOM.render(<Calculator store={store} />, document.querySelector('main'));
-// });
 
