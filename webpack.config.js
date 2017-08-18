@@ -78,6 +78,8 @@ const webpackConfig = {
               plugins: [
                 // verifies queries against GraphQL schema
                 'relay',
+                // enable support for decorators
+                'transform-decorators-legacy',
                 // enable support for class properties
                 'transform-class-properties',
                 // enable support for do expressions
